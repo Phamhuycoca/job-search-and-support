@@ -25,11 +25,17 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     name: 'home',
     component: HomeView,
+    meta:{
+      public:true
+    }
   },
   {
     path: '/admin',
     name: 'admin',
     component: ()=> import('../views/AdminView.vue'),
+    meta:{
+      public:true
+    }
   },
 ];
 
