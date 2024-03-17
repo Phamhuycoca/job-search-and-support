@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, type NavigationGuardWithThis, type Rout
 import HomeView from '../views/HomeView.vue'
 import VueRouteMiddleware, { GLOBAL_MIDDLEWARE_NAME } from './middleware';
 import authMiddleware from './authMiddleware';
+import { PageName } from '@/common/constants';
 // const router = createRouter({
 //   history: createWebHistory(import.meta.env.BASE_URL),
 //   routes: [
@@ -30,12 +31,28 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '',
+    name: PageName.LOGIN_PAGE,
+    component: ()=>import('../pages/Auth/Login.vue'),
+    meta:{
+      public:true
+    }
+  },
+  {
     path: '/admin',
+    redirect:'/admin/dashboard',
     name: 'admin',
     component: ()=> import('../views/AdminView.vue'),
     meta:{
       public:true
-    }
+    },
+    children:[
+      {
+        path: 'dashboard',
+        name: PageName.DASHBOARD_PAGE,
+        component: ()=>import('../layouts/Admin/Dashboard.vue'),
+      },
+    ]
   },
 ];
 
